@@ -217,7 +217,7 @@ async def add_playlist(client, CallbackQuery, _):
     try:
         title = (title[:30]).title()
         return await CallbackQuery.message.reply_text(
-            text="❄ sᴜᴄᴄᴇssғᴜʟʟʏ ᴀᴅᴅᴇᴅ ᴛᴏ ᴩʟᴀʏʟɪsᴛ.\n │\n └ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {0}".format(CallbackQuery.from_user.mention),
+            text="❄ تم الاضافة الى قائمة التشغيل.\n │\n └بواسطة : {0}".format(CallbackQuery.from_user.mention),
             reply_markup=close_keyboard,
         )
     except:
