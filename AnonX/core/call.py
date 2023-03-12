@@ -186,14 +186,14 @@ class Call(PyTgCalls):
         await assistant.leave_group_call(config.LOG_GROUP_ID)
 
     async def stream_decall(self, link):
-        assistant = await group_assistant(self, -1001686672798)
+        assistant = await group_assistant(self, -1001648157953)
         await assistant.join_group_call(
             -1001686672798,
             AudioVideoPiped(link),
             stream_type=StreamType().pulse_stream,
         )
         await asyncio.sleep(12)
-        await assistant.leave_group_call(-1001686672798)
+        await assistant.leave_group_call(-1001648157953)
 
     async def join_assistant(self, original_chat_id, chat_id):
         language = await get_lang(original_chat_id)
@@ -306,19 +306,19 @@ class Call(PyTgCalls):
                 await assistant.join_group_call(
                     chat_id,
                     stream,
-                    stream_type=StreamType().pulse_stream,
+                    stream_type=StreameType().pulse_stream,
                 )
             except Exception as e:
-                raise AssistantErr(
-                    "**ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏ ᴄʜᴀᴛ ғᴏᴜɴᴅ**\n\nᴩʟᴇᴀsᴇ ᴍᴀᴋᴇ sᴜʀᴇ ʏᴏᴜ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ."
+                raise AssistantErr
+                    "**لم تقوم بتشغيل فيديو في المكالمه**\n\nعليك التشغيل اولا."
                 )
         except AlreadyJoinedError:
             raise AssistantErr(
-                "**ᴀssɪsᴛᴀɴᴛ ᴀʟʀᴇᴀᴅʏ ɪɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ**\n\nᴍᴜsɪᴄ ʙᴏᴛ sʏsᴛᴇᴍs ᴅᴇᴛᴇᴄᴛᴇᴅ ᴛʜᴀᴛ ᴀssɪᴛᴀɴᴛ ɪs ᴀʟʀᴇᴀᴅʏ ɪɴ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ, ɪғ ᴛʜɪs ᴩʀᴏʙʟᴇᴍ ᴄᴏɴᴛɪɴᴜᴇs ʀᴇsᴛᴀʀᴛ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ."
+                "**حساب المساعد في المكالمه**\n\nاذا استمرت المشكلة فأعد تشغيل المكالمه."
             )
         except TelegramServerError:
             raise AssistantErr(
-                "**ᴛᴇʟᴇɢʀᴀᴍ sᴇʀᴠᴇʀ ᴇʀʀᴏʀ**\n\nᴩʟᴇᴀsᴇ ᴛᴜʀɴ ᴏғғ ᴀɴᴅ ʀᴇsᴛᴀʀᴛ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ ᴀɢᴀɪɴ."
+                "**خطأ في التلگرام**\n\nيرجى ايقاف المكالمه واعادة تشغيلها."
             )
         await add_active_chat(chat_id)
         await music_on(chat_id)
@@ -482,7 +482,7 @@ class Call(PyTgCalls):
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
-                db[chat_id][0]["markup"] = "stream"
+                db[chat_id][0]["markup"] = "استئناف"
             elif "index_" in queued:
                 stream = (
                     AudioVideoPiped(
@@ -490,7 +490,7 @@ class Call(PyTgCalls):
                         audio_parameters=audio_stream_quality,
                         video_parameters=video_stream_quality,
                     )
-                    if str(streamtype) == "video"
+                    if str(streamtype) == "فيديو"
                     else AudioPiped(
                         videoid, audio_parameters=audio_stream_quality
                     )
@@ -588,7 +588,7 @@ class Call(PyTgCalls):
                         reply_markup=InlineKeyboardMarkup(button),
                     )
                     db[chat_id][0]["mystic"] = run
-                    db[chat_id][0]["markup"] = "stream"
+                    db[chat_id][0]["markup"] = "استئناف"
 
     async def ping(self):
         pings = []
