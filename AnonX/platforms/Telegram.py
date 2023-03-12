@@ -138,14 +138,14 @@ class TeleAPI:
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
-**{MUSIC_BOT_NAME} ᴍᴇᴅɪᴀ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ**
+**{MUSIC_BOT_NAME} تنزيل الوسائط**
 
-**sɪᴢᴇ :** {total_size}
-**ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ :** {completed_size} 
-**ᴩᴇʀᴄᴇɴᴛᴀɢᴇ :** {percentage[:5]}%
+**الحجم :** {total_size}
+**تنزيل :** {completed_size} 
+**النسبة المئوية :** {percentage[:5]}%
 
-**sᴩᴇᴇᴅ :** {speed}/s
-**ᴇᴛᴀ :** {eta}"""
+**السرعه :** {speed}/s
+**إخرى :** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except:
@@ -164,7 +164,7 @@ class TeleAPI:
                     progress=progress,
                 )
                 await mystic.edit_text(
-                    "**ғɪʟᴇ sᴜᴄᴄᴇssғᴜʟʟʏ ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ.\n\n ᴩʀᴏᴄᴇssɪɴɢ...**"
+                    "**تم تنزيل الملف بنجاح.\n\n معالجه...**"
                 )
                 downloader.pop(message.message_id)
             except:
