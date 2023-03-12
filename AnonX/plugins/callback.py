@@ -70,7 +70,7 @@ async def unban_assistant_(_, CallbackQuery):
     a = await app.get_chat_member(int(chat_id), app.id)
     if not a.can_restrict_members:
         return await CallbackQuery.answer(
-            "ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ᴜɴʙᴀɴ ᴜsᴇʀs ɪɴ ᴛʜɪs ᴄʜᴀᴛ.",
+            "ليس لديك الصلاحيات لألغاء الحظر.",
             show_alert=True,
         )
     else:
@@ -78,11 +78,11 @@ async def unban_assistant_(_, CallbackQuery):
             await app.unban_chat_member(int(chat_id), int(user_id))
         except:
             return await CallbackQuery.answer(
-                "ғᴀɪʟᴇᴅ ᴛᴏ ᴜɴʙᴀɴ ᴛʜᴇ ᴀssɪsᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ.",
+                "لم تقوم بألغاء حظر الحساب المساعد.",
                 show_alert=True,
             )
         return await CallbackQuery.edit_message_text(
-            "ᴀssɪsᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ ᴜɴʙᴀɴɴᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ.\n\nᴛʀʏ ᴘʟᴀʏɪɴɢ ɴᴏᴡ..."
+            "تم الغاء حظر الحساب المساعد.\n\nحاول التشغيل الان..."
         )
 
 
@@ -165,7 +165,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         )
     elif command == "Skip":
         check = db.get(chat_id)
-        txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🥺\n│ \n└ʙʏ : {mention} 🥀"
+        txt = f"➻ تم تخطي التشغيل 🥺\n│ \n└بواسطة : {mention} 🥀"
         popped = None
         try:
             popped = check.pop(0)
@@ -174,7 +174,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
             if not check:
                 await CallbackQuery.edit_message_text(
-                    f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🥺\n│ \n└ʙʏ : {mention} 🥀",
+                    f"➻ تم تخطي التشغيل 🥺\n│ \n└بواسطة : {mention} 🥀",
                     reply_markup=close_keyboard
                 )
                 await CallbackQuery.message.reply_text(
@@ -187,7 +187,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         except:
             try:
                 await CallbackQuery.edit_message_text(
-                    f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🥺\n│ \n└ʙʏ : {mention} 🥀",
+                    f"➻ تم تخطي التشغيل 🥺\n│ \n└بواسطة : {mention} 🥀",
                     reply_markup=close_keyboard
                 )
                 await CallbackQuery.message.reply_text(
@@ -204,7 +204,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         videoid = check[0]["vidid"]
         user_id = check[0]["user_id"]
         duration_min = check[0]["dur"]
-        status = True if str(streamtype) == "video" else None
+        status = True if str(streamtype) == "فيديو" else None
         db[chat_id][0]["played"] = 0
         if "live_" in queued:
             n, link = await YouTube.video(videoid, True)
@@ -271,7 +271,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 reply_markup=InlineKeyboardMarkup(button),
             )
             db[chat_id][0]["mystic"] = run
-            db[chat_id][0]["markup"] = "stream"
+            db[chat_id][0]["markup"] = "استئناف"
             await CallbackQuery.edit_message_text(txt)
             await mystic.delete()
         elif "index_" in queued:
@@ -376,7 +376,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             if (duration_played - duration_to_skip) <= 10:
                 bet = seconds_to_min(duration_played)
                 return await CallbackQuery.answer(
-                    f"» ʙᴏᴛ ɪs ᴜɴᴀʙʟᴇ ᴛᴏ sᴇᴇᴋ ʙᴇᴄᴀᴜsᴇ ᴛʜᴇ ᴅᴜʀᴀᴛɪᴏɴ ᴇxᴄᴇᴇᴅs.\n\nᴄᴜʀʀᴇɴᴛʟʏ ᴩʟᴀʏᴇᴅ :** {bet}** ᴍɪɴᴜᴛᴇs ᴏᴜᴛ ᴏғ **{duration}** ᴍɪɴᴜᴛᴇs.",
+                    f"» لا يمكن البحث،المدة الزمنيه طويله.\n\nالتشغيل الحالي :** {bet}** دقائق من **{duration}** دقائق.",
                     show_alert=True,
                 )
             to_seek = duration_played - duration_to_skip + 1
@@ -387,7 +387,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             ) <= 10:
                 bet = seconds_to_min(duration_played)
                 return await CallbackQuery.answer(
-                    f"» ʙᴏᴛ ɪs ᴜɴᴀʙʟᴇ ᴛᴏ sᴇᴇᴋ ʙᴇᴄᴀᴜsᴇ ᴛʜᴇ ᴅᴜʀᴀᴛɪᴏɴ ᴇxᴄᴇᴇᴅs.\n\nᴄᴜʀʀᴇɴᴛʟʏ ᴩʟᴀʏᴇᴅ :** {bet}** ᴍɪɴᴜᴛᴇs ᴏᴜᴛ ᴏғ **{duration}** ᴍɪɴᴜᴛᴇs.",
+                    f"» لا يمكن البحث،المدة الزمنية طويله.\n\nالتشغيل الحالي :** {bet}** دقائق من **{duration}** دقائق.",
                     show_alert=True,
                 )
             to_seek = duration_played + duration_to_skip + 1
@@ -415,7 +415,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             db[chat_id][0]["played"] += duration_to_skip
         string = _["admin_33"].format(seconds_to_min(to_seek))
         await mystic.edit_text(
-            f"{string}\n\nᴄʜᴀɴɢᴇs ᴅᴏɴᴇ ʙʏ : {mention} !"
+            f"{string}\n\nالتغيرات التي حصلت بواسطة : {mention} !"
         )
 
 
