@@ -9,7 +9,7 @@ def start_pannel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
     buttons = [
         [
             InlineKeyboardButton(
-                text="ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
+                text="اضف البوت الى مجموعتك",
                 url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
             )
         ],
@@ -30,7 +30,7 @@ def private_panel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
     buttons = [
         [
             InlineKeyboardButton(
-                text="•ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ•",
+                text="•اضف البوت الى مجموعتك•",
                 url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
             )
         ],
@@ -45,9 +45,6 @@ def private_panel(_, BOT_USERNAME, OWNER: Union[bool, int] = None):
         [
             InlineKeyboardButton(
                 text="💔sᴜᴩᴩᴏʀᴛ💔", url=config.SUPPORT_GROUP
-            ),
-            InlineKeyboardButton(
-                text="✨ sᴏᴜʀᴄᴇ ✨", url=f"https://github.com/itsneerja/NidhiMusic"
             )
         ],
      ]
